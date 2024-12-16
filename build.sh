@@ -31,4 +31,6 @@ chmod +x /tmp/1password.sh && \
 ### activate brcmfmac module on boot
 # workaround for broadcom-wl shenanigans in bluefin and aurora
 # https://github.com/ublue-os/bluefin/issues/1783#issuecomment-2546018436
-touch -f /usr/lib/{NetworkManager/conf.d/90-broadcom-wl.conf,modprobe.d/broadcom-wl-blacklist.conf}
+for f in "/usr/lib/NetworkManager/conf.d/90-broadcom-wl.conf" "/usr/lib/modprobe.d/broadcom-wl-blacklist.conf"; do
+   [ -f "$f" ] && truncate -s 0 "$f" || touch "$f"
+done
